@@ -11,7 +11,7 @@ export interface ProductDTO {
   thumb: string;
 }
 
-type FilterProductsDTO = Partial<Pick<ProductDTO, "name" | "price">>;
+export type FilterProductsDTO = Partial<Pick<ProductDTO, "name" | "price">>;
 
 export type ProductQueryDTO = FilterProductsDTO & PaginationParams;
 

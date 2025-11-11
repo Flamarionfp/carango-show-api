@@ -243,6 +243,63 @@
  *         pagination:
  *           $ref: '#/components/schemas/Pagination'
  *
+ *     Supplier:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: O ID do fornecedor.
+ *           example: "550e8400-e29b-41d4-a716-446655440000"
+ *         name:
+ *           type: string
+ *           description: O nome do fornecedor.
+ *           example: "Fornecedor XYZ"
+ *         email:
+ *           type: string
+ *           format: email
+ *           description: O email do fornecedor.
+ *           example: "contato@fornecedor.com"
+ *         phone:
+ *           type: string
+ *           description: O telefone do fornecedor.
+ *           example: "(11) 98765-4321"
+ *
+ *     CreateSupplierRequest:
+ *       type: object
+ *       required:
+ *         - name
+ *         - email
+ *         - phone
+ *       properties:
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *           format: email
+ *         phone:
+ *           type: string
+ *
+ *     UpdateSupplierRequest:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *         email:
+ *           type: string
+ *           format: email
+ *         phone:
+ *           type: string
+ *
+ *     PaginatedSuppliers:
+ *       type: object
+ *       properties:
+ *         data:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/Supplier'
+ *         pagination:
+ *           $ref: '#/components/schemas/Pagination'
+ *
  *   securitySchemes:
  *     BearerAuth:
  *       type: http

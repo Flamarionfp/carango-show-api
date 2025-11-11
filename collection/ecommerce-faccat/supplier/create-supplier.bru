@@ -1,0 +1,28 @@
+meta {
+  name: create-supplier
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{BASE_URL}}/supplier
+  body: json
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJlbWFpbCI6ImFkbWluaXN0cmFkb3JAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkX2F0IjoiMjAyNS0xMS0xMSAwMToxMDowNiIsImlhdCI6MTc2Mjg2NzA5NiwiZXhwIjoxNzYyODcwNjk2fQ.zS44o9bu5y1r8CiMHN2_6adjsTQ9E7qrV2GeJy7VpfM
+}
+
+body:json {
+  {
+    "name": "Testando",
+    "email": "testando@email.com",
+    "phone": "(54) 99690-8625"
+  }
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

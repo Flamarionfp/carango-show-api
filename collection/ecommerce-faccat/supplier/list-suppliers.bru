@@ -1,0 +1,20 @@
+meta {
+  name: list-suppliers
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{BASE_URL}}/supplier
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJlbWFpbCI6ImFkbWluaXN0cmFkb3JAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkX2F0IjoiMjAyNS0xMS0xMSAxMzoyMjowNiIsImlhdCI6MTc2Mjg2NzM0MywiZXhwIjoxNzYyODcwOTQzfQ.IdOxCb9GgQ-m9QY3sm5WDGfRo2gk8PbjKdZcnEb2fUI
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

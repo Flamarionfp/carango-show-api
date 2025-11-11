@@ -1,0 +1,20 @@
+meta {
+  name: delete-supplier
+  type: http
+  seq: 2
+}
+
+delete {
+  url: {{BASE_URL}}/supplier/22
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJlbWFpbCI6ImFkbWluaXN0cmFkb3JAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkX2F0IjoiMjAyNS0xMS0xMSAwMToxMDowNiIsImlhdCI6MTc2MjgyMzk3OSwiZXhwIjoxNzYyODI3NTc5fQ.Z4pUaFB2aJ9fej82AgBqxKC1EdDi_vfMNhtxFMogqEM
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
