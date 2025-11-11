@@ -14,6 +14,8 @@ import { healthCheckController } from "./controllers/health-check";
 import cors from "cors";
 import morgan from "morgan";
 import orderRouter from "./routes/order.routes";
+import { API_DOCS_URL } from "./constants/api";
+import { logServerInfo } from "./helpers/misc/server";
 
 z.config(z.locales.pt());
 
@@ -21,8 +23,6 @@ const app = express();
 
 app.use(cors({ origin: "*" }));
 app.use(express.json());
-
-const API_DOCS_URL = "/api-docs";
 
 app.use(API_DOCS_URL, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
@@ -43,13 +43,8 @@ const host = process.env.API_HOST || "localhost";
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
-  const isProduction = process.env.NODE_ENV === "production";
-  const protocol = isProduction ? "https" : "http";
 
   app.listen(port, () => {
-    console.log(`🚀 Servidor rodando em ${protocol}://${host}:${port}`);
-    console.log(
-      `📘 Documentação da API: ${protocol}://${host}:${port}${API_DOCS_URL}`
-    );
+    logServerInfo(host, port);
   });
 });
