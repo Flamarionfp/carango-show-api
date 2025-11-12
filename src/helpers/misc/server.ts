@@ -10,8 +10,8 @@ export function logServerInfo(host: string, port: string | number) {
     console.log(`📘 Documentação da API: ${protocol}://${host}${API_DOCS_URL}`);
   }
 
-  console.log(`🚀 Servidor rodando em ${protocol}://${host}:${port}`);
+  console.log(`🚀 Servidor rodando em ${protocol}://localhost:${port}`);
   console.log(
-    `📘 Documentação da API: ${protocol}://${host}:${port}${API_DOCS_URL}`
+    `📘 Documentação da API: ${protocol}://localhost:${port}${API_DOCS_URL}`
   );
 }

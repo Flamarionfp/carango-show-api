@@ -55,3 +55,29 @@ Caso ainda não tenha o [dotenv-cli](https://www.npmjs.com/package/dotenv-cli), 
 ```bash
 npm install -g dotenv-cli
 ```
+
+### Via Docker
+
+Buildar a imagem
+
+```bash
+docker compose build
+```
+
+Subir o container
+
+```bash
+docker compose up -d
+```
+
+Buildar a imagem e subir o container
+
+```bash
+docker compose up --build -d
+```
+
+Parar e remover o container
+
+```bash
+docker compose down
+```

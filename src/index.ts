@@ -28,7 +28,7 @@ app.use(API_DOCS_URL, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(morgan("dev"));
 
-app.use("/health-check", healthCheckController.handle);
+app.use("/", healthCheckController.handle);
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/product", productRouter);
@@ -39,12 +39,8 @@ app.use("/order", orderRouter);
 app.use(exceptionHandlerMiddleware.handle);
 
 const port = process.env.PORT || 4444;
-const host = process.env.API_HOST || "localhost";
+const host = process.env.API_HOST || "0.0.0.0";
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-
-  app.listen(port, () => {
-    logServerInfo(host, port);
-  });
+app.listen(Number(port), host, () => {
+  logServerInfo(host, port);
 });
