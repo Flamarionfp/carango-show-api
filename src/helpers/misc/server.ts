@@ -8,6 +8,8 @@ export function logServerInfo(host: string, port: string | number) {
   if (isProduction) {
     console.log(`🚀 Servidor rodando em ${protocol}://${host}`);
     console.log(`📘 Documentação da API: ${protocol}://${host}${API_DOCS_URL}`);
+
+    return;
   }
 
   console.log(`🚀 Servidor rodando em ${protocol}://localhost:${port}`);
