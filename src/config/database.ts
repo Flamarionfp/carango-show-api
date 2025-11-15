@@ -10,8 +10,10 @@ export interface DatabaseConnection {
 }
 
 export async function connectDatabase(): Promise<DatabaseConnection> {
+  console.log("DEBUG INSIDE", process.env.DATABASE_URL);
+
   const client = createClient({
-    url: "libsql://carango-show-db-flamarionfp.aws-us-west-2.turso.io",
+    url: process.env.DATABASE_URL!,
     authToken: process.env.DATABASE_AUTH_TOKEN,
   });
 
