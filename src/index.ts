@@ -41,13 +41,17 @@ app.use(exceptionHandlerMiddleware.handle);
 const port = Number(process.env.PORT || 4444);
 const host = process.env.API_HOST || "0.0.0.0";
 
-app.listen(Number(port), host, () => {
-  console.log("🔧 Starting API...");
-  console.log("NODE_ENV =", process.env.NODE_ENV);
-  console.log("DATABASE_URL =", process.env.DATABASE_URL);
-  console.log("PORT =", process.env.PORT);
+// app.listen(Number(port), host, () => {
+//   console.log("🔧 Starting API...");
+//   console.log("NODE_ENV =", process.env.NODE_ENV);
+//   console.log("DATABASE_URL =", process.env.DATABASE_URL);
+//   console.log("PORT =", process.env.PORT);
 
-  logServerInfo(host, port);
+//   logServerInfo(host, port);
+// });
+
+app.listen(port, "0.0.0.0", () => {
+  console.log(`API rodando na porta ${port}`);
 });
 
 process.on("uncaughtException", (err) => {
