@@ -1,4 +1,6 @@
-export async function up(db: import("sqlite").Database) {
+import { DatabaseConnection } from "../../src/config/database";
+
+export async function up(db: DatabaseConnection) {
   await db.exec(
     `ALTER TABLE products ADD COLUMN trade TEXT NOT NULL DEFAULT '';`
   );

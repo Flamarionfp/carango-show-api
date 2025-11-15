@@ -1,4 +1,6 @@
-export async function up(db: import("sqlite").Database) {
+import { DatabaseConnection } from "../../src/config/database";
+
+export async function up(db: DatabaseConnection) {
   await db.exec(`
     CREATE TABLE IF NOT EXISTS cart (
       id INTEGER PRIMARY KEY AUTOINCREMENT, 
