@@ -1,13 +1,15 @@
 import "dotenv/config";
 import { API_DOCS_URL } from "../../constants/api";
 
-export function logServerInfo(host: string, port: string | number) {
+export function logServerInfo(port: string | number, liveHost?: string) {
   const isProduction = process.env.NODE_ENV === "production";
   const protocol = isProduction ? "https" : "http";
 
-  if (isProduction) {
-    console.log(`🚀 Servidor rodando em ${protocol}://${host}`);
-    console.log(`📘 Documentação da API: ${protocol}://${host}${API_DOCS_URL}`);
+  if (isProduction && liveHost) {
+    console.log(`🚀 Servidor rodando em ${protocol}://${liveHost}`);
+    console.log(
+      `📘 Documentação da API: ${protocol}://${liveHost}${API_DOCS_URL}`
+    );
 
     return;
   }
