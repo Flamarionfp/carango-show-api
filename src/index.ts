@@ -42,5 +42,18 @@ const port = process.env.PORT || 4444;
 const host = process.env.API_HOST || "0.0.0.0";
 
 app.listen(Number(port), host, () => {
+  console.log("🔧 Starting API...");
+  console.log("NODE_ENV =", process.env.NODE_ENV);
+  console.log("DATABASE_URL =", process.env.DATABASE_URL);
+  console.log("PORT =", process.env.PORT);
+
   logServerInfo(host, port);
+});
+
+process.on("uncaughtException", (err) => {
+  console.error("Uncaught Exception:", err);
+});
+
+process.on("unhandledRejection", (reason) => {
+  console.error("Unhandled Rejection:", reason);
 });
