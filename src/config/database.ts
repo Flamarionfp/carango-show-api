@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { createClient } from "@libsql/client";
 
 export interface DatabaseConnection {
@@ -10,7 +11,7 @@ export interface DatabaseConnection {
 
 export async function connectDatabase(): Promise<DatabaseConnection> {
   const client = createClient({
-    url: process.env.DATABASE_URL!,
+    url: "libsql://carango-show-db-flamarionfp.aws-us-west-2.turso.io",
     authToken: process.env.DATABASE_AUTH_TOKEN,
   });
 
