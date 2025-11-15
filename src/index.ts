@@ -42,5 +42,7 @@ const port = process.env.PORT || 4444;
 const host = process.env.API_HOST || "0.0.0.0";
 
 app.listen(Number(port), host, () => {
+  console.log(process.env.DATABASE_URL);
+
   logServerInfo(host, port);
 });
