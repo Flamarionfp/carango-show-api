@@ -1,24 +1,26 @@
+# Build
 FROM node:22 AS build
 
 WORKDIR /app
 
 COPY package*.json ./
-
 RUN npm ci
 
 COPY . .
-
 RUN npm run build
 
-FROM node:22-slim AS development
+FROM node:22-slim AS production
 
 WORKDIR /app
 
-COPY --from=build /app ./
-
-ENV NODE_ENV=development
+ENV NODE_ENV=production
 ENV PORT=4444
+
+COPY package*.json ./
+RUN npm ci --omit=dev --ignore-scripts
+
+COPY --from=build /app/dist ./dist
 
 EXPOSE 4444
 
-CMD ["npm", "start"]
+CMD ["node", "dist/index.js"]

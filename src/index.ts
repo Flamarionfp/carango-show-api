@@ -28,7 +28,7 @@ app.use(API_DOCS_URL, swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use(morgan("dev"));
 
-app.use("/", healthCheckController.handle);
+app.use("/health-check", healthCheckController.handle);
 app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/product", productRouter);
