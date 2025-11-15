@@ -1,5 +1,5 @@
 # Build
-FROM node:22 AS build
+FROM node:18 AS build
 
 WORKDIR /app
 
@@ -9,7 +9,7 @@ RUN npm ci
 COPY . .
 RUN npm run build
 
-FROM node:22-slim AS production
+FROM node:18-slim AS production
 
 WORKDIR /app
 
