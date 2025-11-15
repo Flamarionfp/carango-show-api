@@ -38,7 +38,7 @@ app.use("/order", orderRouter);
 
 app.use(exceptionHandlerMiddleware.handle);
 
-const port = process.env.PORT || 4444;
+const port = Number(process.env.PORT || 4444);
 const host = process.env.API_HOST || "0.0.0.0";
 
 app.listen(Number(port), host, () => {

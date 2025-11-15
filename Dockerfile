@@ -21,6 +21,6 @@ RUN npm ci --omit=dev --ignore-scripts
 
 COPY --from=build /app/dist ./dist
 
-EXPOSE 4444
+EXPOSE ${PORT}
 
 CMD ["node", "dist/index.js"]
