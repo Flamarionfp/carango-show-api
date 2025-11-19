@@ -6,5 +6,5 @@ export const makeSupplier = (
   id: overrides.id ?? "1",
   name: overrides.name ?? "Fornecedor Teste",
   email: overrides.email ?? "teste@fornecedor.com",
-  phone: overrides.phone ?? "(11) 99999-9999",
+  phone: overrides.phone ?? "(54) 99999-9999",
 });
