@@ -1,7 +1,7 @@
 import { fakerPT_BR as faker } from "@faker-js/faker";
 
-export const suppliers = Array.from({ length: 20 }).map((_, i) => ({
+export const suppliers = Array.from({ length: 30 }).map((_, i) => ({
   name: faker.vehicle.manufacturer(),
   email: faker.internet.email({ provider: "example.com" }).toLowerCase(),
-  phone: faker.phone.number({ style: "national" }),
+  phone: "(54) 99999-9999",
 }));
