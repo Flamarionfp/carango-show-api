@@ -23,9 +23,11 @@ export class ProductSqliteRepository implements ProductRepository {
     );
 
     if (row) {
+      const { supplier_id, specifications, ...rest } = row;
       return {
-        ...row,
-        specifications: JSON.parse(row.specifications || "[]"),
+        ...rest,
+        specifications: JSON.parse(specifications || "[]"),
+        supplierId: supplier_id ?? null,
       } as ProductDTO;
     }
 
@@ -39,9 +41,11 @@ export class ProductSqliteRepository implements ProductRepository {
     );
 
     if (row) {
+      const { supplier_id, specifications, ...rest } = row;
       return {
-        ...row,
-        specifications: JSON.parse(row.specifications || "[]"),
+        ...rest,
+        specifications: JSON.parse(specifications || "[]"),
+        supplierId: supplier_id ?? null,
       } as ProductDTO;
     }
 
@@ -80,8 +84,14 @@ export class ProductSqliteRepository implements ProductRepository {
     return {
       ...result,
       data: result.data.map((row) => ({
-        ...row,
-        specifications: JSON.parse(row.specifications || "[]"),
+        ...(() => {
+          const { supplier_id, specifications, ...rest } = row;
+          return {
+            ...rest,
+            specifications: JSON.parse(specifications || "[]"),
+            supplierId: supplier_id ?? null,
+          };
+        })(),
       })) as ProductDTO[],
     };
   };
@@ -98,6 +108,7 @@ export class ProductSqliteRepository implements ProductRepository {
       "year",
       "specifications",
       "thumb",
+      "supplierId",
     ];
 
     for (const [key, value] of Object.entries(product)) {
@@ -136,14 +147,15 @@ export class ProductSqliteRepository implements ProductRepository {
 
   create = async (product: CreateProductDTO) => {
     const result = await this.connection.run(
-      `INSERT INTO products (name, price, trade, model, year, specifications, thumb) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO products (name, price, trade, model, year, specifications, thumb, supplier_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       product.name,
       product.price,
       product.trade,
       product.model,
       product.year,
       JSON.stringify(product.specifications),
-      product.thumb
+      product.thumb,
+      product.supplierId ?? null
     );
 
     const id =
@@ -160,6 +172,7 @@ export class ProductSqliteRepository implements ProductRepository {
       year: product.year,
       specifications: product.specifications,
       thumb: product.thumb,
+      supplierId: product.supplierId ?? null,
     };
   };
 }

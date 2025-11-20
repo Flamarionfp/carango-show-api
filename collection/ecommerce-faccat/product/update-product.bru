@@ -5,26 +5,28 @@ meta {
 }
 
 put {
-  url: {{BASE_URL}}/product/50
+  url: {{BASE_URL}}/product/159
   body: json
   auth: bearer
 }
 
 auth:bearer {
-  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJlbWFpbCI6ImFkbWluaXN0cmFkb3JAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkX2F0IjoiMjAyNS0wOS0yOSAwMToxOTozOCIsImlhdCI6MTc1OTEwODkxNiwiZXhwIjoxNzU5MTEyNTE2fQ.8P5uGLcr1ymdGZ7ht4MNg3WOwTgXIyJj3jrTwIglqw4
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJlbWFpbCI6ImFkbWluaXN0cmFkb3JAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkX2F0IjoiMjAyNS0wOS0yMiAxNDo1Mjo0NCIsImlhdCI6MTc2MzY2MzQ4NSwiZXhwIjoxNzYzNjY3MDg1fQ.10fiC_sbEcukpvjooV0C_eebb3N2lVawpt90hHvV55Y
 }
 
 body:json {
   {
-    "name": "BMW X7",
-    "price": 20,
-    "trade": "BMW",
-    "model": "X7 xDrive40i",
-    "year": "2023-01-01",
-    "specifications": ["Automático", "Gasolina", "Ar-condicionado digital", "Airbags frontais e laterais"]
+    "name": "Fusca",
+    "price": 100,
+    "trade": "Volkswagen",
+    "model": "Fusca 1300",
+    "year": "1970-01-01",
+    "supplierId": 3000,
+    "specifications": ["Manual", "Gasolina", "Ar-condicionado", "Direção hidráulica"]
   }
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }

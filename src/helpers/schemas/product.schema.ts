@@ -24,6 +24,10 @@ const productSchema = z.object({
 
       return val;
     }),
+    supplierId: z
+      .union([z.number().int().positive(), z.null()])
+      .optional()
+      .describe("ID do fornecedor associado ao produto"),
 });
 
 export const createProductBodySchema = z.object({

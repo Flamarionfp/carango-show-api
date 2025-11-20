@@ -9,6 +9,7 @@ export interface ProductDTO {
   year: string;
   specifications: string[];
   thumb: string;
+  supplierId?: number | null;
 }
 
 export type FilterProductsDTO = Partial<Pick<ProductDTO, "name" | "price">>;
