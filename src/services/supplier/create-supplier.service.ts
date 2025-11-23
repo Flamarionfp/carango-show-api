@@ -11,9 +11,9 @@ export class CreateSupplierService {
       this.supplierRepository.findByEmail(dto.email),
     ]).then(([byName, byEmail]) => byName || byEmail);
 
-    // if (existingSupplier) {
-    //   throw new BadRequestException("Esse fornecedor já existe");
-    // }
+    if (existingSupplier) {
+      throw new BadRequestException("Esse fornecedor já existe");
+    }
 
     const createdSupplier = await this.supplierRepository.create(dto);
 
