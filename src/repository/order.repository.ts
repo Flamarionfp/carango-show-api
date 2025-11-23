@@ -4,6 +4,7 @@ import {
   OrderDTO,
   OrderSummaryDTO,
   TotalSalesAmountDTO,
+  TopSellingProductDTO,
 } from "../dtos/order.dto";
 
 export interface OrderRepository {
@@ -19,4 +20,5 @@ export interface OrderRepository {
   create: (order: CreateOrderDTO) => Promise<OrderDTO>;
   deleteByUserId: (userId: number) => Promise<void>;
   getTotalSalesAmountByMonth: () => Promise<TotalSalesAmountDTO>;
+  getTopSellingProductByMonth: () => Promise<TopSellingProductDTO | null>;
 }

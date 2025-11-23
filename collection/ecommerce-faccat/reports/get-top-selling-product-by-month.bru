@@ -1,0 +1,20 @@
+meta {
+  name: get-top-selling-product-by-month
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{BASE_URL}}/report/top-selling-product-by-month
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJlbWFpbCI6ImFkbWluaXN0cmFkb3JAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkX2F0IjoiMjAyNS0wOS0yMiAxNDo1Mjo0NCIsImlhdCI6MTc2MzkyNjIzNywiZXhwIjoxNzYzOTI5ODM3fQ.OoO8cNzsanbhmQ1_bfkKU3-hz3bElSRI3c6xFlKprUA
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}

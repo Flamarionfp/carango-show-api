@@ -32,3 +32,12 @@ export interface TotalSalesAmountDTO {
   totalMonthAmount: number;
   orderCount: number;
 }
+
+export interface TopSellingProductDTO {
+  productId: number;
+  productName: string;
+  productTrade: string;
+  productModel: string;
+  totalQuantitySold: number;
+  totalAmount: number;
+}

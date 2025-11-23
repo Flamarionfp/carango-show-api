@@ -5,6 +5,7 @@ import {
   OrderDTO,
   OrderSummaryDTO,
   TotalSalesAmountDTO,
+  TopSellingProductDTO,
 } from "../../dtos/order.dto";
 import { paginate } from "../../helpers/misc/paginate";
 import { OrderRepository } from "../order.repository";
@@ -167,5 +168,42 @@ export class OrderSqliteRepository implements OrderRepository {
       totalMonthAmount: Number(result.totalMonthAmount) || 0,
       orderCount: Number(result.orderCount) || 0,
     };
+  };
+
+  getTopSellingProductByMonth = async () => {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = String(now.getMonth() + 1).padStart(2, "0");
+
+    const result = await this.connection.get<any>(
+      `SELECT
+        oi.product_id AS productId,
+        p.name AS productName,
+        p.trade AS productTrade,
+        p.model AS productModel,
+        COUNT(oi.id) AS totalQuantitySold,
+        SUM(oi.price) AS totalAmount
+      FROM order_items oi
+      JOIN orders o ON oi.order_id = o.id
+      JOIN products p ON oi.product_id = p.id
+      WHERE strftime('%Y-%m', o.created_at) = ?
+      GROUP BY oi.product_id, p.name, p.trade, p.model
+      ORDER BY totalQuantitySold DESC
+      LIMIT 1`,
+      `${currentYear}-${currentMonth}`
+    );
+
+    if (!result) {
+      return null;
+    }
+
+    return {
+      productId: result.productId,
+      productName: result.productName,
+      productTrade: result.productTrade,
+      productModel: result.productModel,
+      totalQuantitySold: Number(result.totalQuantitySold),
+      totalAmount: Number(result.totalAmount),
+    } as TopSellingProductDTO;
   };
 }
