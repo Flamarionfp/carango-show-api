@@ -10,7 +10,8 @@
     "commit": "cz",
     "dev": "ts-node-dev --respawn src/index.ts",
     "start": "node dist/index.js",
-    "build": "tsup src",
+    "generate:swagger": "node scripts/generate-swagger.js",
+    "build": "npm run generate:swagger && tsup src",
     "migrate": "ts-node sqlite/migrate.ts",
     "seed": "ts-node sqlite/seed.ts"
   },
