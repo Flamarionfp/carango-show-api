@@ -27,3 +27,8 @@ export interface OrderSummaryDTO {
 export type CreateOrderDTO = Omit<OrderDTO, "id" | "createdAt" | "items"> & {
   items: Omit<OrderItemDTO, "id">[];
 };
+
+export interface TotalSalesAmountDTO {
+  totalMonthAmount: number;
+  orderCount: number;
+}

@@ -4,6 +4,7 @@ import {
   CreateOrderDTO,
   OrderDTO,
   OrderSummaryDTO,
+  TotalSalesAmountDTO,
 } from "../../dtos/order.dto";
 import { paginate } from "../../helpers/misc/paginate";
 import { OrderRepository } from "../order.repository";
@@ -139,5 +140,32 @@ export class OrderSqliteRepository implements OrderRepository {
 
   deleteByUserId = async (userId: number) => {
     await this.connection.run(`DELETE FROM orders WHERE user_id = ?`, userId);
+  };
+
+  getTotalSalesAmountByMonth = async (): Promise<TotalSalesAmountDTO> => {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = String(now.getMonth() + 1).padStart(2, "0");
+
+    const result = await this.connection.get<any>(
+      `SELECT 
+        SUM(total_amount) as totalMonthAmount, 
+        COUNT(id) as orderCount 
+      FROM orders 
+      WHERE strftime('%Y-%m', created_at) = ?`,
+      `${currentYear}-${currentMonth}`
+    );
+
+    if (!result || result.totalMonthAmount === null) {
+      return {
+        totalMonthAmount: 0,
+        orderCount: 0,
+      };
+    }
+
+    return {
+      totalMonthAmount: Number(result.totalMonthAmount) || 0,
+      orderCount: Number(result.orderCount) || 0,
+    };
   };
 }
