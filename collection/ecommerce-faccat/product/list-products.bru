@@ -5,22 +5,23 @@ meta {
 }
 
 get {
-  url: {{BASE_URL}}/product
+  url: {{BASE_URL}}/product?limit=100
   body: none
   auth: bearer
 }
 
 params:query {
-  ~limit: 2
+  limit: 100
   ~page: 1
   ~name: BMW
   ~price: 999
 }
 
 auth:bearer {
-  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJlbWFpbCI6ImFkbWluaXN0cmFkb3JAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkX2F0IjoiMjAyNS0wOS0zMCAwMDoyNDoxNCIsImlhdCI6MTc1OTE5NDIwNywiZXhwIjoxNzU5MTk3ODA3fQ.yXVucgCFIpYS54Y1mynxkq5JQyzlqwh5ojxGYG4MxOA
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJlbWFpbCI6ImFkbWluaXN0cmFkb3JAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkX2F0IjoiMjAyNS0wOS0yMiAxNDo1Mjo0NCIsImlhdCI6MTc2MzY2MzQ4NSwiZXhwIjoxNzYzNjY3MDg1fQ.10fiC_sbEcukpvjooV0C_eebb3N2lVawpt90hHvV55Y
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }

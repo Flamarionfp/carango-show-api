@@ -37,6 +37,10 @@
  *           format: url
  *           description: URL da imagem de thumbnail do produto.
  *           example: "http://example.com/thumb.jpg"
+ *         supplierId:
+ *           type: integer
+ *           description: ID do fornecedor associado ao produto.
+ *           example: 1
  *         year:
  *           type: string
  *           format: date
@@ -213,6 +217,9 @@
  *           type: string
  *         price:
  *           type: number
+ *        supplierId:
+ *          type: integer
+ *          description: ID do fornecedor associado ao produto.
  *         trade:
  *           type: string
  *         model:
@@ -235,6 +242,9 @@
  *           type: string
  *         price:
  *           type: number
+ *        supplierId:
+ *          type: integer
+ *          description: ID do fornecedor associado ao produto.
  *         trade:
  *           type: string
  *         model:
