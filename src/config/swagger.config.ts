@@ -1,10 +1,11 @@
 import swaggerJsdoc from "swagger-jsdoc";
+import path from "path";
 
 const isProduction = process.env.NODE_ENV === "production";
 
 const apis = isProduction
-  ? ["./dist/src/routes/*.js", "./dist/src/routes/schemas.js"]
-  : ["./src/routes/*.ts", "./src/routes/schemas.ts"];
+  ? [path.resolve(process.cwd(), "dist/src/routes/**/*.js")]
+  : ["./src/routes/**/*.ts"];
 
 const options: swaggerJsdoc.Options = {
   definition: {
