@@ -41,3 +41,32 @@ export interface TopSellingProductDTO {
   totalQuantitySold: number;
   totalAmount: number;
 }
+
+export interface SalesReportOrderDTO {
+  id: number;
+  userId: number;
+  totalAmount: number;
+  createdAt: string;
+  itemCount: number;
+}
+
+export interface SalesReportDTO {
+  period: string;
+  totalOrders: number;
+  totalItemsSold: number;
+  averageOrderValue: number;
+  orders: SalesReportOrderDTO[];
+}
+
+export interface FinancialMetricsDTO {
+  totalAmount: number;
+  totalOrders: number;
+  averageOrderValue: number;
+  averageItemPrice: number;
+  topSellingProduct: TopSellingProductDTO | null;
+}
+
+export interface FinancialReportDTO {
+  period: string;
+  metrics: FinancialMetricsDTO;
+}

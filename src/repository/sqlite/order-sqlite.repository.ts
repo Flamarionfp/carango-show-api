@@ -6,6 +6,9 @@ import {
   OrderSummaryDTO,
   TotalSalesAmountDTO,
   TopSellingProductDTO,
+  SalesReportOrderDTO,
+  SalesReportDTO,
+  FinancialReportDTO,
 } from "../../dtos/order.dto";
 import { paginate } from "../../helpers/misc/paginate";
 import { OrderRepository } from "../order.repository";
@@ -205,5 +208,99 @@ export class OrderSqliteRepository implements OrderRepository {
       totalQuantitySold: Number(result.totalQuantitySold),
       totalAmount: Number(result.totalAmount),
     } as TopSellingProductDTO;
+  };
+
+  getSalesReportByMonth = async (): Promise<SalesReportDTO> => {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = String(now.getMonth() + 1).padStart(2, "0");
+    const monthYear = `${currentYear}-${currentMonth}`;
+
+    const ordersResult = await this.connection.all<any[]>(
+      `SELECT
+          o.id,
+          o.user_id AS userId,
+          o.total_amount AS totalAmount,
+          o.created_at AS createdAt,
+          COUNT(oi.id) AS itemCount
+        FROM orders o
+        LEFT JOIN order_items oi ON o.id = oi.order_id
+        WHERE strftime('%Y-%m', o.created_at) = ?
+        GROUP BY o.id
+        ORDER BY o.created_at DESC`,
+      monthYear
+    );
+
+    const totalOrders = ordersResult.length;
+    const totalItemsSold = ordersResult.reduce(
+      (sum, order) => sum + Number(order.itemCount),
+      0
+    );
+    const totalAmount = ordersResult.reduce(
+      (sum, order) => sum + Number(order.totalAmount),
+      0
+    );
+    const averageOrderValue = totalOrders > 0 ? totalAmount / totalOrders : 0;
+
+    const orders: SalesReportOrderDTO[] = ordersResult.map((order) => ({
+      id: order.id,
+      userId: order.userId,
+      totalAmount: Number(order.totalAmount),
+      createdAt: order.createdAt,
+      itemCount: Number(order.itemCount),
+    }));
+
+    return {
+      period: monthYear,
+      totalOrders,
+      totalItemsSold,
+      averageOrderValue: Number(averageOrderValue.toFixed(2)),
+      orders,
+    };
+  };
+
+  getFinancialReportByMonth = async (): Promise<FinancialReportDTO> => {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = String(now.getMonth() + 1).padStart(2, "0");
+    const monthYear = `${currentYear}-${currentMonth}`;
+
+    const totalsResult = await this.connection.get<any>(
+      `SELECT 
+          SUM(o.total_amount) as totalAmount,
+          COUNT(DISTINCT o.id) as totalOrders
+        FROM orders o
+        WHERE strftime('%Y-%m', o.created_at) = ?`,
+      monthYear
+    );
+
+    const totalAmount = Number(totalsResult?.totalAmount) || 0;
+    const totalOrders = Number(totalsResult?.totalOrders) || 0;
+    const averageOrderValue = totalOrders > 0 ? totalAmount / totalOrders : 0;
+
+    const itemResult = await this.connection.get<any>(
+      `SELECT 
+        COUNT(oi.id) as totalItems,
+        AVG(oi.price) as avgPrice
+      FROM order_items oi
+      JOIN orders o ON oi.order_id = o.id
+      WHERE strftime('%Y-%m', o.created_at) = ?`,
+      monthYear
+    );
+
+    const averageItemPrice = Number(itemResult?.avgPrice) || 0;
+
+    const topProduct = await this.getTopSellingProductByMonth();
+
+    return {
+      period: monthYear,
+      metrics: {
+        totalAmount: Number(totalAmount.toFixed(2)),
+        totalOrders,
+        averageOrderValue: Number(averageOrderValue.toFixed(2)),
+        averageItemPrice: Number(averageItemPrice.toFixed(2)),
+        topSellingProduct: topProduct,
+      },
+    };
   };
 }

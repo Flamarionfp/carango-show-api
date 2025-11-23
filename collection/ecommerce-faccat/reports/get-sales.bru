@@ -1,0 +1,20 @@
+meta {
+  name: get-sales
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{BASE_URL}}/report/sales
+  body: none
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJlbWFpbCI6ImFkbWluaXN0cmFkb3JAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkX2F0IjoiMjAyNS0wOS0yMiAxNDo1Mjo0NCIsImlhdCI6MTc2MzkzMDMwMCwiZXhwIjoxNzYzOTMzOTAwfQ.oomjkBRLBdEgdJLa9DaTNeMYHDtZcBJaMSEjd7QAV_c
+}
+
+settings {
+  encodeUrl: true
+  timeout: 0
+}
