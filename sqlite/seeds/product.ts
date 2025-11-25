@@ -2,16 +2,25 @@ import { DatabaseConnection } from "../../src/config/database";
 import { products } from "./fixtures/products";
 
 export async function createProducts(db: DatabaseConnection) {
+  const supplierRows = await db.all<any[]>(`SELECT id FROM suppliers`);
+  const supplierIds = supplierRows.map((r) => r.id).filter((id) => !!id);
+
   for (const product of products) {
+    const supplierId =
+      supplierIds.length > 0
+        ? supplierIds[Math.floor(Math.random() * supplierIds.length)]
+        : null;
+
     await db.run(
-      `INSERT INTO products (name, price, trade, model, year, specifications, thumb) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO products (name, price, trade, model, year, specifications, thumb, supplier_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
       product.name,
       product.price,
       product.trade,
       product.model,
       product.year,
       JSON.stringify(product.specifications),
-      product.thumb
+      product.thumb,
+      supplierId
     );
   }
 
