@@ -5,9 +5,9 @@ import {
   OrderSummaryDTO,
   TotalSalesAmountDTO,
   TopSellingProductDTO,
-  SalesReportOrderDTO,
   SalesReportDTO,
   FinancialReportDTO,
+  SuppliersRankingDTO,
 } from "../dtos/order.dto";
 
 export interface OrderRepository {
@@ -26,4 +26,5 @@ export interface OrderRepository {
   getTopSellingProductByMonth: () => Promise<TopSellingProductDTO | null>;
   getSalesReportByMonth: () => Promise<SalesReportDTO>;
   getFinancialReportByMonth: () => Promise<FinancialReportDTO>;
+  getSuppliersRankingByMonth: () => Promise<SuppliersRankingDTO>;
 }

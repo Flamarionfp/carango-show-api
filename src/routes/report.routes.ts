@@ -3,6 +3,7 @@ import { makeGetTotalSalesAmountController } from "../controllers/reports/get-to
 import { makeGetTopSellingProductByMonthController } from "../controllers/reports/get-top-selling-product-by-month-controller";
 import { makeGetSalesReportController } from "../controllers/reports/get-sales-report-controller";
 import { makeGetFinancialReportController } from "../controllers/reports/get-financial-report-controller";
+import { makeGetSuppliersRankingController } from "../controllers/reports/get-suppliers-ranking-controller";
 import { makeAuthMiddleware } from "../middlewares/auth-middleware";
 import { checkRoleMiddleware } from "../middlewares/check-role-middleware";
 
@@ -213,6 +214,63 @@ const reportRouter = Router();
  *         description: Acesso negado - apenas administradores
  */
 
+/**
+ * @swagger
+ * /report/suppliers-ranking:
+ *   get:
+ *     tags: [Reports]
+ *     summary: Obter ranking de fornecedores
+ *     description: Retorna ranking de fornecedores ordenados por receita total no período, com métricas de vendas
+ *     security:
+ *       - BearerAuth: []
+ *     responses:
+ *       200:
+ *         description: Ranking de fornecedores obtido com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 period:
+ *                   type: string
+ *                   description: Período do relatório (YYYY-MM)
+ *                   example: "2025-11"
+ *                 suppliers:
+ *                   type: array
+ *                   description: Lista de fornecedores ordenados por receita (decrescente)
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       supplierId:
+ *                         type: integer
+ *                         description: ID do fornecedor
+ *                         example: 1
+ *                       supplierName:
+ *                         type: string
+ *                         description: Nome do fornecedor
+ *                         example: "Ferrari"
+ *                       supplierEmail:
+ *                         type: string
+ *                         description: Email do fornecedor
+ *                         example: "contact@ferrari.com"
+ *                       totalProductsSold:
+ *                         type: integer
+ *                         description: Total de produtos vendidos
+ *                         example: 50
+ *                       totalAmount:
+ *                         type: number
+ *                         description: Receita total do fornecedor
+ *                         example: 5000000.00
+ *                       averageOrderValue:
+ *                         type: number
+ *                         description: Valor médio por pedido
+ *                         example: 100000.00
+ *       401:
+ *         description: Não autorizado
+ *       403:
+ *         description: Acesso negado - apenas administradores
+ */
+
 const configureReportRoutes = async () => {
   const authMiddleware = await makeAuthMiddleware();
 
@@ -239,6 +297,11 @@ const configureReportRoutes = async () => {
   const getFinancialReportController = await makeGetFinancialReportController();
 
   reportRouter.get("/financial", getFinancialReportController.handle);
+
+  const getSuppliersRankingController =
+    await makeGetSuppliersRankingController();
+
+  reportRouter.get("/suppliers-ranking", getSuppliersRankingController.handle);
 
   return reportRouter;
 };

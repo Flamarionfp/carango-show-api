@@ -9,6 +9,7 @@ import {
   SalesReportOrderDTO,
   SalesReportDTO,
   FinancialReportDTO,
+  SuppliersRankingDTO,
 } from "../../dtos/order.dto";
 import { paginate } from "../../helpers/misc/paginate";
 import { OrderRepository } from "../order.repository";
@@ -301,6 +302,47 @@ export class OrderSqliteRepository implements OrderRepository {
         averageItemPrice: Number(averageItemPrice.toFixed(2)),
         topSellingProduct: topProduct,
       },
+    };
+  };
+
+  getSuppliersRankingByMonth = async (): Promise<SuppliersRankingDTO> => {
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = String(now.getMonth() + 1).padStart(2, "0");
+    const monthYear = `${currentYear}-${currentMonth}`;
+
+    const suppliersResult = await this.connection.all<any[]>(
+      `SELECT
+        s.id AS supplierId,
+        s.name AS supplierName,
+        s.email AS supplierEmail,
+        COUNT(oi.id) AS totalProductsSold,
+        SUM(oi.price) AS totalAmount,
+        AVG(oi.price) AS averageOrderValue
+      FROM suppliers s
+      LEFT JOIN products p ON s.id = p.supplier_id
+      LEFT JOIN order_items oi ON p.id = oi.product_id
+      LEFT JOIN orders o ON oi.order_id = o.id
+      WHERE strftime('%Y-%m', o.created_at) = ? OR (o.id IS NULL)
+      GROUP BY s.id, s.name, s.email
+      ORDER BY totalAmount DESC`,
+      monthYear
+    );
+
+    const suppliers = suppliersResult
+      .filter((s) => s.totalAmount !== null && s.totalProductsSold > 0)
+      .map((s) => ({
+        supplierId: s.supplierId,
+        supplierName: s.supplierName,
+        supplierEmail: s.supplierEmail,
+        totalProductsSold: Number(s.totalProductsSold),
+        totalAmount: Number(s.totalAmount),
+        averageOrderValue: Number(s.averageOrderValue),
+      }));
+
+    return {
+      period: monthYear,
+      suppliers,
     };
   };
 }

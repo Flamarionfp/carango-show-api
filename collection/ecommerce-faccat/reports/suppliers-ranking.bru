@@ -1,18 +1,13 @@
 meta {
-  name: list-orders
+  name: suppliers-ranking
   type: http
-  seq: 1
+  seq: 5
 }
 
 get {
-  url: {{BASE_URL}}/order
+  url: {{BASE_URL}}/report/suppliers-ranking
   body: none
   auth: bearer
-}
-
-params:query {
-  ~limit: 1
-  ~page: 1
 }
 
 auth:bearer {

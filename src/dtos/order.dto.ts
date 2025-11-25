@@ -70,3 +70,17 @@ export interface FinancialReportDTO {
   period: string;
   metrics: FinancialMetricsDTO;
 }
+
+export interface TopSupplierDTO {
+  supplierId: number;
+  supplierName: string;
+  supplierEmail: string;
+  totalProductsSold: number;
+  totalAmount: number;
+  averageOrderValue: number;
+}
+
+export interface SuppliersRankingDTO {
+  period: string;
+  suppliers: TopSupplierDTO[];
+}
