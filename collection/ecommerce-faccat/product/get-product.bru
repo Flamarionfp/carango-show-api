@@ -5,11 +5,16 @@ meta {
 }
 
 get {
-  url: {{BASE_URL}}/product/1
+  url: {{BASE_URL}}/product/162
   body: none
-  auth: inherit
+  auth: bearer
+}
+
+auth:bearer {
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJlbWFpbCI6ImFkbWluaXN0cmFkb3JAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkX2F0IjoiMjAyNS0wOS0yMiAxNDo1Mjo0NCIsImlhdCI6MTc2NDA3MTk4OSwiZXhwIjoxNzY0MDc1NTg5fQ.LTTUo6BEFQNOvht20tdGM9jxrOm9qwrsgKJ_gxx5n4Q
 }
 
 settings {
   encodeUrl: true
+  timeout: 0
 }

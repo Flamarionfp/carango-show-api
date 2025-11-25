@@ -5,24 +5,32 @@ meta {
 }
 
 put {
-  url: {{BASE_URL}}/product/159
+  url: {{BASE_URL}}/product/162
   body: json
   auth: bearer
 }
 
 auth:bearer {
-  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJlbWFpbCI6ImFkbWluaXN0cmFkb3JAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkX2F0IjoiMjAyNS0wOS0yMiAxNDo1Mjo0NCIsImlhdCI6MTc2MzY2MzQ4NSwiZXhwIjoxNzYzNjY3MDg1fQ.10fiC_sbEcukpvjooV0C_eebb3N2lVawpt90hHvV55Y
+  token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IkFkbWluaXN0cmFkb3IiLCJlbWFpbCI6ImFkbWluaXN0cmFkb3JAZXhhbXBsZS5jb20iLCJyb2xlIjoiYWRtaW4iLCJjcmVhdGVkX2F0IjoiMjAyNS0wOS0yMiAxNDo1Mjo0NCIsImlhdCI6MTc2NDA3MTk4OSwiZXhwIjoxNzY0MDc1NTg5fQ.LTTUo6BEFQNOvht20tdGM9jxrOm9qwrsgKJ_gxx5n4Q
 }
 
 body:json {
   {
-    "name": "Fusca",
-    "price": 100,
-    "trade": "Volkswagen",
-    "model": "Fusca 1300",
-    "year": "1970-01-01",
-    "supplierId": 3000,
-    "specifications": ["Manual", "Gasolina", "Ar-condicionado", "Direção hidráulica"]
+    "id": 162,
+    "name": "Palio",
+    "price": 130,
+    "created_at": "2025-11-25 11:47:42",
+    "trade": "Fiat",
+    "model": "Palio Fire",
+    "year": "2016-01-01",
+    "thumb": "https://pub-7cb414da039946818b1c3b680cb16eb3.r2.dev/palio.jpg",
+    "specifications": [
+      "Manual",
+      "Flex",
+      "Ar-condicionado",
+      "Direção hidráulica"
+    ],
+    "supplierId": 37
   }
 }
 

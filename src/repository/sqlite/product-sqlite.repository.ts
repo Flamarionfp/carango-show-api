@@ -116,7 +116,9 @@ export class ProductSqliteRepository implements ProductRepository {
         value !== undefined &&
         allowedFields.includes(key as keyof UpdateProductDTO)
       ) {
-        setClauses.push(`${key} = ?`);
+        const column = key === "supplierId" ? "supplier_id" : key;
+        setClauses.push(`${column} = ?`);
+
         if (key === "specifications") {
           params.push(JSON.stringify(value));
         } else {
@@ -133,7 +135,7 @@ export class ProductSqliteRepository implements ProductRepository {
 
     await this.connection.run(
       `UPDATE products SET ${setClauses.join(", ")} WHERE id = ?`,
-      params
+      ...params
     );
 
     const updatedProduct = await this.findById(id);
