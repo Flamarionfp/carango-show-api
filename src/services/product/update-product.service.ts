@@ -14,18 +14,18 @@ export class UpdateProductService {
   execute = async (id: number, dto: UpdateProductDTO) => {
     const existingProduct = await this.productRepository.findById(id);
 
-    if (!existingProduct) {
-      throw new NotFoundException("Esse produto não existe");
-    }
+    // if (!existingProduct) {
+    //   throw new NotFoundException("Esse produto não existe");
+    // }
 
     if (dto.name && dto.name !== existingProduct.name) {
       const productWithNewName = await this.productRepository.findByName(
         dto.name
       );
 
-      if (productWithNewName) {
-        throw new NotFoundException("Já existe um produto com esse nome");
-      }
+      // if (productWithNewName) {
+      //   throw new NotFoundException("Já existe um produto com esse nome");
+      // }
     }
 
     if (dto.supplierId !== undefined && dto.supplierId !== null) {

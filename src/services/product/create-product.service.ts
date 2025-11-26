@@ -12,9 +12,9 @@ export class CreateProductService {
   execute = async (dto: CreateProductDTO) => {
     const existingProduct = await this.productRepository.findByName(dto.name);
 
-    if (existingProduct) {
-      throw new BadRequestException("Esse produto já existe");
-    }
+    // if (existingProduct) {
+    //   throw new BadRequestException("Esse produto já existe");
+    // }
 
     if (dto.supplierId) {
       const supplier = await this.supplierRepository.findById(dto.supplierId);
