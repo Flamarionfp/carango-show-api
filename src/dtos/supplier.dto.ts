@@ -1,5 +1,5 @@
 export interface SupplierDTO {
-  id: string;
+  id: string | number;
   name: string;
   email: string;
   phone: string;

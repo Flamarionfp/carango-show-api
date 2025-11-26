@@ -13,6 +13,21 @@ export class SupplierSqliteRepository implements SupplierRepository {
     this.connection = await connectDatabase();
   }
 
+  private normalizeSupplier(row: any): SupplierDTO | null {
+    if (!row) return null;
+
+    return {
+      id: Number(row.id),
+      name: row.name,
+      email: row.email,
+      phone: row.phone,
+    };
+  }
+
+  private normalizeList(rows: any[]): SupplierDTO[] {
+    return rows.map((row) => this.normalizeSupplier(row)!);
+  }
+
   create = async (dto: CreateSupplierDTO) => {
     const result = await this.connection.run(
       `INSERT INTO suppliers (name, email, phone) VALUES (?, ?, ?)`,
@@ -22,7 +37,7 @@ export class SupplierSqliteRepository implements SupplierRepository {
     );
 
     const supplier: SupplierDTO = {
-      id: result.lastID!,
+      id: Number(result.lastID),
       ...dto,
     };
 
@@ -30,38 +45,38 @@ export class SupplierSqliteRepository implements SupplierRepository {
   };
 
   findAll = async () => {
-    const rows = await this.connection.all<SupplierDTO[]>(
+    const rows = await this.connection.all<any[]>(
       `SELECT id, name, email, phone FROM suppliers`
     );
 
-    return rows;
+    return this.normalizeList(rows);
   };
 
   findById = async (id: number) => {
-    const row = await this.connection.get<SupplierDTO>(
+    const row = await this.connection.get<any>(
       `SELECT id, name, email, phone FROM suppliers WHERE id = ?`,
       id
     );
 
-    return row ?? null;
+    return this.normalizeSupplier(row);
   };
 
   findByEmail = async (email: string) => {
-    const row = await this.connection.get<SupplierDTO>(
+    const row = await this.connection.get<any>(
       `SELECT id, name, email, phone FROM suppliers WHERE email = ?`,
       email
     );
 
-    return row ?? null;
+    return this.normalizeSupplier(row);
   };
 
   findByName = async (name: string) => {
-    const row = await this.connection.get<SupplierDTO>(
+    const row = await this.connection.get<any>(
       `SELECT id, name, email, phone FROM suppliers WHERE name = ?`,
       name
     );
 
-    return row ?? null;
+    return this.normalizeSupplier(row);
   };
 
   delete = async (id: number) => {
@@ -102,7 +117,6 @@ export class SupplierSqliteRepository implements SupplierRepository {
     await this.connection.run(query, ...values);
 
     const updatedSupplier = await this.findById(id);
-
     return updatedSupplier!;
   };
 }
